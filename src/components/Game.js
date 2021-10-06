@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Game = ({ game }) => {
+  const [scores, setScores] = useState([]);
+
+  useEffect(() => {
+		const fetchData = async () => {
+      let response = await axios.get(`http://localhost:3001/games/${game.id}`);
+      setScores(response.data);
+    };
+    fetchData();
+	}, [game.id]);
+
   return (
     <div className='wrapper'>
       <div className='game'>
@@ -19,7 +30,7 @@ const Game = ({ game }) => {
                 {game.team_defence} <span>40-50</span>
               </p>
             </div>
-            {/* <table className='game__scores-table'>
+            <table className='game__scores-table'>
               <thead>
                 <tr>
                   <th>1</th>
@@ -35,17 +46,13 @@ const Game = ({ game }) => {
               </thead>
               <tbody>
                 <tr>
-                  <td>{game.runs}</td>
-                  <td>{game.hits}</td>
-                  <td>{game.saves}</td>
+                  {scores.map(score => <td key={score.inning_number}>{score.score}</td>)}
                 </tr>
                 <tr>
-                  <td>{game.runs}</td>
-                  <td>{game.hits}</td>
-                  <td>{game.saves}</td>
+                  {scores.map(score => <td key={score.inning_number}>{score.score}</td>)}
                 </tr>
               </tbody>
-            </table> */}
+            </table>
           </div>
 
           <table className='game__info'>

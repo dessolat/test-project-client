@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.scss';
 import Game from './components/Game';
+import Navi from './components/Navi';
 
 function App() {
   const [games, setGames] = useState([]);
@@ -18,29 +19,9 @@ function App() {
     fetchData();
   }, [page]);
 
-  const handlePrevClick = () => {
-    if (page <= 1) return;
-    setPage(prev => prev - 1);
-  };
-
-  const handleNextClick = () => {
-    if (page >= maxPages) return;
-    setPage(prev => prev + 1);
-  };
-
   return (
     <div className='container'>
-      <nav>
-        <button className='nav-btn btn' onClick={handlePrevClick} disabled={page <= 1 && true}>
-          {'<'}
-        </button>
-        <button
-          className='nav-btn btn'
-          onClick={handleNextClick}
-          disabled={page >= maxPages && true}>
-          {'>'}
-        </button>
-      </nav>
+      <Navi page={page} setPage={setPage} maxPages={maxPages} />
       <div className='outer-wrapper'>
         {games.map(game => (
           <Game key={game.id} game={game} />

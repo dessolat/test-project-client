@@ -10,6 +10,7 @@
 
 html {
   font: 16px 'Proxima Nova', Arial, Helvetica, sans-serif;
+  --speed: .3s;
 }
 
 body {
@@ -38,24 +39,24 @@ a {
 
 nav {
   padding-top: 70px;
-text-align: center;
+  text-align: center;
 }
 
 .btn {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-	user-select: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  user-select: none;
 }
 
 .nav-btn {
-	padding: 10px;
-	font-size: 30px;
-	border-radius: 5px;
+  padding: 10px;
+  font-size: 30px;
+  border-radius: 5px;
 
-	&:not([disabled]):hover {
-		background-color: white;
-	}
+  &:not([disabled]):hover {
+    background-color: white;
+  }
 }
 
 .container {
@@ -76,6 +77,18 @@ text-align: center;
 .wrapper {
   padding: 7.5px;
   width: 25%;
+
+	@media only screen and (max-width: 1226px) {
+		width: 33.3%;
+	}
+
+	@media only screen and (max-width: 934px) {
+		width: 50%;
+	}
+	@media only screen and (max-width: 639px) {
+		width: 100%;
+	}
+
 }
 
 .game {
@@ -84,10 +97,20 @@ text-align: center;
   border-radius: 5px;
   padding: 0 10px;
   height: 286px;
-  transition: transform 0.3s;
+  transition: transform var(--speed);
 
   &:hover {
     transform: scale(1.05);
+
+    .game__team-names {
+      opacity: 0;
+      z-index: 0;
+    }
+
+    .game__scores-table {
+      opacity: 1;
+      z-index: 1;
+    }
   }
 
   &__header {
@@ -108,6 +131,7 @@ text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+		padding-bottom: 2px;
   }
 
   &__team-logo {
@@ -125,8 +149,7 @@ text-align: center;
   }
 
   &__team-names {
-    // opacity: 0;
-    // z-index: 0;
+    transition: all var(--speed);
   }
 
   &__team-name {
@@ -147,6 +170,7 @@ text-align: center;
     width: 100%;
     z-index: 0;
     opacity: 0;
+		transition: all var(--speed);
   }
 
   &__info {
@@ -187,11 +211,18 @@ text-align: center;
       font-weight: bold;
       color: #444444;
       padding-left: 6px;
-    }
 
+			@media screen and (max-width: 350px) {
+				font-size: 12px;
+			}
+    }
+		
     &-other-info {
-      color: #888888;
+			color: #888888;
       font-weight: 600;
+			@media screen and (max-width: 350px) {
+				font-size: 11px;
+			}
     }
   }
 
